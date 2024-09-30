@@ -1,3 +1,4 @@
+import 'package:bmi_calculator_flutter/results_page.dart';
 import 'package:bmi_calculator_flutter/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +9,7 @@ enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   InputPage({super.key});
+
 
   @override
   _InputPageState createState() => _InputPageState();
@@ -204,12 +206,11 @@ class _InputPageState extends State<InputPage> {
                         ]),
                   ))
                 ])),
-            Container(
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.only(top: 10),
-              color: kBottomContainerColor,
-              height: kBottomContainerHeight,
-            ),
+            BottomBootm(onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                  ResultsPage()
+              ));
+            },label: 'CALCULATE',),
           ],
         ));
   }
@@ -222,6 +223,27 @@ class _InputPageState extends State<InputPage> {
       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
       overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
       thumbColor: Color(0xFFEB1555),
+    );
+  }
+}
+
+class BottomBootm extends StatelessWidget {
+  const BottomBootm({required this.onTap,this.label=''});
+  final Function() onTap;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: Center(child: Text(label,style: kLargeButtonTextStyle,)),
+        padding: EdgeInsets.only(bottom: 25),
+        margin: EdgeInsets.only(top: 10),
+        color: kBottomContainerColor,
+        height: kBottomContainerHeight,
+        width: double.infinity,
+      ),
     );
   }
 }
